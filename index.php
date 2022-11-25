@@ -10,20 +10,17 @@
 <body>
 <?php
 session_start();
-if (isset($_SESSION['login'])) {
-    echo "Greetings, " . $_SESSION['login'];
-} else {
-    echo nl2br("Greetings, stranger.\r\n");
-    echo nl2br("Please, tell me who you are.\r\n");
-}
-include 'fiche_form.html';
 if (!isset($_POST['name']) || !isset($_POST['gender']) || !isset($_POST['race'])) {
-    echo "Please, fill the minimum fields required (Name, Gender, Race).";
-}
-else{
+    if (isset($_SESSION['login'])) {
+        echo "Greetings, " . $_SESSION['login'];
+    } else {
+        echo nl2br("Greetings, stranger.\r\n");
+    }
+    echo nl2br("Please, tell me who you are.\r\n");
+    include 'fiche_form.html';
+} else {
     include 'visu.php';
 }
-
 
 
 ?>

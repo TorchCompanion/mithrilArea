@@ -52,6 +52,21 @@ try {
 VALUES ('$name', '$lastname', '$age', '$gender', '$race', '$alignment', '$background', '$height', '$weight', '$hair', '$skin', '$eyes', '$distinctivesigns', '$health', '$mana', '$stamina', '$strength', '$dexterity', '$intelligence', '$faith', '$perception', '$charisma', '$reflex')";
         $requete = $db->query($sqlQuery);
     }
+    elseif(isset($_POST['name_User'], $_POST['pw_User'], $_POST['pw_User_Verf'], $_POST['mail_User'])) {
+        $name_User = $_POST['name_User'];
+        $pw_User = md5($_POST['pw_User']);
+        $mail_User = $_POST['mail_User'];
+        $db = new PDO('mysql:host=localhost;dbname=mithrilarea;charset=utf8', 'root', '');
+        $sqlQuery = "INSERT INTO Utilisateur 
+                   (Username, 
+                   Password, 
+                   Mail)
+    VALUES ('$name_User', '$pw_User', '$mail_User')";
+        $requete = $db->query($sqlQuery);
+    }
+    else {
+        echo "Error";
+    }
 } catch (Exception $e) {
-    die("Erreur: " . $e->getMessage());
+    die("Error: " . $e->getMessage());
 }
