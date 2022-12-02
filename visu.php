@@ -1,9 +1,9 @@
 <?php
-$name = $_POST['name'];
+session_start();
 try {
     if (isset($_POST['name'], $_POST['gender'], $_POST['race'])) {
         echo '<h1>Is this who you are?</h1><br>';
-        echo '<form action="insert.php" method="post">';
+        echo '<form action="pdf.php" method="post" id="form-visu">';
         echo '<input type="hidden" name="name" id="name" value="' . $_POST['name'] . '">Name: ' . $_POST['name'] . '<br>';
         echo '<input type="hidden" name="lastname" id="lastname" value="' . $_POST['lastname'] . '">Last Name: ' . $_POST['lastname'] . '<br>';
         echo '<input type="hidden" name="age" id="age" value="' . $_POST['age'] . '">Age: ' . $_POST['age'] . '<br>';
@@ -27,8 +27,15 @@ try {
         echo '<input type="hidden" name="perception" id="perception" value="' . $_POST['perception'] . '">Perception: ' . $_POST['perception'] . '<br>';
         echo '<input type="hidden" name="charisma" id="charisma" value="' . $_POST['charisma'] . '">Charisma: ' . $_POST['charisma'] . '<br>';
         echo '<input type="hidden" name="reflex" id="reflex" value="' . $_POST['reflex'] . '">Reflex: ' . $_POST['reflex'] . '<br>';
-        echo '</form>';
+        echo '<input type="submit" value="View PDF" id="but-pdf"><input type="button" value="Save in database" id="but-save" onclick="Save()"></form>';
     }
 } catch (Exception $e) {
     die("Erreur: " . $e->getMessage());
 }
+?>
+<script>
+    function Save(){
+        document.getElementById("form-visu").action = "insert.php";
+        document.getElementById("form-visu").submit();
+    }
+</script>

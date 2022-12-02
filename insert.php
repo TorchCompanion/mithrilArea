@@ -1,4 +1,5 @@
 <?php
+session_start();
 try {
     if (isset($_POST['name'], $_POST['gender'], $_POST['race'])) {
         $name = $_POST['name'];
@@ -24,8 +25,9 @@ try {
         $perception = $_POST['perception'];
         $charisma = $_POST['charisma'];
         $reflex = $_POST['reflex'];
+        $id_User = $_SESSION['id'];
         $db = new PDO('mysql:host=localhost;dbname=mithrilarea;charset=utf8', 'root', '');
-        $sqlQuery = "INSERT INTO fiche 
+        $sqlQuery = "INSERT INTO Sheets 
                    (name, 
                    lastName, 
                    age, 
@@ -48,11 +50,13 @@ try {
                    faith, 
                    perception, 
                    charisma, 
-                   reflex) 
-VALUES ('$name', '$lastname', '$age', '$gender', '$race', '$alignment', '$background', '$height', '$weight', '$hair', '$skin', '$eyes', '$distinctivesigns', '$health', '$mana', '$stamina', '$strength', '$dexterity', '$intelligence', '$faith', '$perception', '$charisma', '$reflex')";
+                   reflex,
+                    id_User) 
+VALUES ('$name', '$lastname', '$age', '$gender', '$race', '$alignment', '$background', '$height', '$weight', '$hair', '$skin', '$eyes', '$distinctivesigns', '$health', '$mana', '$stamina', '$strength', '$dexterity', '$intelligence', '$faith', '$perception', '$charisma', '$reflex' , '$id_User')";
         $requete = $db->query($sqlQuery);
-    }
-    elseif(isset($_POST['name_User'], $_POST['pw_User'], $_POST['pw_User_Verf'], $_POST['mail_User'])) {
+        echo "Sheet registered";
+        header('refresh: 3; url=index.php');
+    } elseif (isset($_POST['name_User'], $_POST['pw_User'], $_POST['pw_User_Verf'], $_POST['mail_User'])) {
         $name_User = $_POST['name_User'];
         $pw_User = md5($_POST['pw_User']);
         $mail_User = $_POST['mail_User'];
@@ -63,8 +67,7 @@ VALUES ('$name', '$lastname', '$age', '$gender', '$race', '$alignment', '$backgr
                    Mail)
     VALUES ('$name_User', '$pw_User', '$mail_User')";
         $requete = $db->query($sqlQuery);
-    }
-    else {
+    } else {
         echo "Error";
     }
 } catch (Exception $e) {
