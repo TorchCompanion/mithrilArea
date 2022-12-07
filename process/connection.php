@@ -20,7 +20,7 @@ try {
             echo "Identification réussie";
             $_SESSION['login'] = $_POST['login'];
             $_SESSION['id'] = $compte['id_User'];
-            header('refresh: 3; url=index.php');
+            header('refresh: 3; url=../index.php');
         } else {
             //Gestion d'erreur d'id ou de mot de passe
             include 'login.php';

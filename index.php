@@ -30,6 +30,9 @@ if (!isset($_POST['name']) || !isset($_POST['gender']) || !isset($_POST['race'])
 
 ?>
 </main>
+<?php
+include 'footer.html';
+?>
 </body>
 </html>
 

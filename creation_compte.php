@@ -9,7 +9,6 @@
 </head>
 <body class="col-12 row text-center">
 <?php
-session_start();
 include 'header.html';
 ?>
 <form action="creation_compte.php" method="post">
@@ -34,22 +33,26 @@ include 'header.html';
 
 <?php
 if (!empty($_POST['name_User']) && !empty($_POST['pw_User']) && !empty($_POST['pw_User_Verf']) && !empty($_POST['mail_User'])) {
-    if ($_POST['pw_User'] == $_POST['pw_User_Verf']) {
-        $_SESSION['notSend'] = "ok";
-        if ($_SESSION['notSend'] !== "ok") {
-            include 'insert.php';
+    $db = new PDO('mysql:host=localhost;dbname=mithrilarea;charset=utf8', 'root', '');
+    $sqlQuery = "SELECT mail FROM accounts WHERE mail = '" . $_POST['mail_User'] . "'";
+    $requete = $db->query($sqlQuery);
+    $result = $requete->fetch();
+    if ($_POST['pw_User'] === $_POST['pw_User_Verf']) {
+        if (is_array($result)) {
+                echo "<p>This mail is already used !</p>";
+        }
+        elseif (!isset($_SESSION['id'])) {
+            include 'process/insert.php';
             echo "<p>Your account has been created !</p>";
             header('refresh:3;url=index.php');
         } else {
-            echo "<p>You already have an account !</p>";
+            echo "<p>You are already logged in !</p>";
+            header('refresh:3;url=index.php');
         }
     } else {
         echo "<p>Password doesn't match !</p>";
     }
-} else {
-    echo "<p>Fill all fields !</p>";
 }
-
 ?>
 </body>
 </html>

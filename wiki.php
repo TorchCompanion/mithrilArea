@@ -10,5 +10,8 @@
 include 'header.html';
 ?>
 
+<?php
+include 'footer.html';
+?>
 </body>
 </html>

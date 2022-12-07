@@ -108,8 +108,8 @@ function __construct($orientation='P', $unit='mm', $size='A4')
 		if(substr($this->fontpath,-1)!='/' && substr($this->fontpath,-1)!='\\')
 			$this->fontpath .= '/';
 	}
-	elseif(is_dir(dirname(__FILE__).'/font'))
-		$this->fontpath = dirname(__FILE__).'/font/';
+	elseif(is_dir(dirname(__FILE__) . '/font'))
+		$this->fontpath = dirname(__FILE__) . '/font/';
 	else
 		$this->fontpath = '';
 	// Core fonts
@@ -451,7 +451,7 @@ function AddFont($family, $style='', $file='')
 	// Add a TrueType, OpenType or Type1 font
 	$family = strtolower($family);
 	if($file=='')
-		$file = str_replace(' ','',$family).strtolower($style).'.php';
+		$file = fpdf . phpstr_replace(' ', '', $family) .'.php';
 	$style = strtoupper($style);
 	if($style=='IB')
 		$style = 'BI';
@@ -1614,7 +1614,7 @@ protected function _putfonts()
 			$this->Error('Font file not found: '.$file);
 		$compressed = (substr($file,-2)=='.z');
 		if(!$compressed && isset($info['length2']))
-			$font = substr($font,6,$info['length1']).substr($font,6+$info['length1']+6,$info['length2']);
+			$font = fpdf . phpsubstr($font, 6, $info['length1']);
 		$this->_put('<</Length '.strlen($font));
 		if($compressed)
 			$this->_put('/Filter /FlateDecode');

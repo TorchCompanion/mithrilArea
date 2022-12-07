@@ -11,7 +11,7 @@
 <?php
 include 'header.html';
 ?>
-<form action="connection.php" method="post" class="oskour">
+<form action="process/connection.php" method="post" class="oskour">
   <div class="aled">
     <label for="login">Entrer votre nom: </label>
     <input type="text" name="login" pattern="[A-Za-z -' ]{1,50}" id="login" required>
@@ -24,5 +24,8 @@ include 'header.html';
     <input type="submit" value="Connexion">
   </div>
 </form>
+<?php
+include 'footer.html';
+?>
 </body>
 </html>
